@@ -1,11 +1,10 @@
 import requests
 import json
+from requests.auth import HTTPBasicAuth
 
-Name = input("What is your desired company name? ").strip
-
+Query = input("What is your desired company name? ").strip
 URL = "https://api.companieshouse.gov.uk/search/companies?q={}"
-Query = Name.replace(' ','+')
 API_Key = "fe2814f0-8a6e-4792-9559-da50593159b7"
 
-response = requests.get(URL.format(Query), auth=(API_Key,''))
+response = requests.get(URL, params=Query, auth=HTTPBasicAuth("apikey", API_Key))
 print(json.dumps(response.json(), indent=2))
